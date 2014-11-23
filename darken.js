@@ -8,6 +8,8 @@
 // dark mode where all colors are
 // darkened for easier night reading
 //
+// Requires jQuery and tinycolor.js
+//
 
 /*
  Rules to follow:
@@ -17,15 +19,88 @@
  Do not affect images, only affect text
 */
 
-
 /**
  * Inserts a header at the top of the page asking the user
  * if they want to enable night mode
  */
 function insertHeader()
 {
-	var html = "";
+	// First, inject the CSS styles
+	var cssStyleElement = document.createElement('style')
+	cssStyleElement.innerHTML = getHeaderCss();
+	document.body.appendChild(cssStyleElement);
 
+	// Next, get the HTML string and append it as the first child of the <body> tag
+	// This is easier to do with jQuery than with standard JS
+	$('body').prepend( getHeaderHtml() );
+
+	// Attach a click handler to the 'Darken' button
+	$("#darkenjs-yes").click(function(){
+		darken();
+		// Remove the header with a slide up animation
+		$(".darkenjs-header").slideUp().remove();
+	})
+
+	// Atach a click handler to the 'No' button
+	$("#darkenjs-no").click(function(){
+		// Remove the header with a slide up animation
+		$(".darkenjs-header").slideUp().remove();
+	})
+}
+
+/**
+ * Returns the html string for the header
+ */
+function getHeaderHtml()
+{
+	var html = "";
+	html += '<div class="darkenjs-header">';
+	html += '	<span class="darkenjs-name">Darken.js</span>';
+  	html += '	This site seems bright. Enable night mode?';
+  	html += '	<div class="darkenjs-button" id="darkenjs-yes">';
+   	html += '		Darken';
+  	html += '	</div>';
+  	html += '	<div class="darkenjs-button" id="darkenjs-no">';
+    html += '		Not this time';
+    html += '	</div>';
+    html += '</div>';
+
+    return html;
+}
+
+/**
+ * Returns the css string for the header styles
+ */
+function getHeaderCss()
+{
+	var css="";
+	css += ".darkenjs-header {";
+	css += "  width: 100%;";
+	css += "  margin: 0px auto;";
+	css += "  padding: 10px 0;";
+	css += "  text-align: center;";
+	css += "  color: #F2F8E2;";
+	css += "  background-color: #080212;";
+	css += "}";
+
+	css += ".darkenjs-name {";
+	css += "  display: inline-block;";
+	css += "  margin: 0 30px 0 -30px;";
+	css += "  font-style: italic;";
+	css += "}";
+
+	css += ".darkenjs-button {";
+	css += "  display: inline-block;";
+	css += "  margin: 0 0 0 15px;";
+	css += "  padding: 5px 10px;";
+	css += "  border: 1px solid #F2F8E2;";
+	css += "}";
+
+	css += ".darkenjs-button:hover {";
+	css += "  border: 1px solid #E48A3C;";
+	css += "}";
+
+	return css;
 }
 
 
@@ -95,3 +170,6 @@ function getStyle(elem, name) {
         return null;
     }
 }
+
+// Initialize Darken.js by inserting the header
+insertHeader();
