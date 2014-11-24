@@ -128,8 +128,8 @@ function darkenElements(jQueryElement) {
 	});
 
 	// Get the text color of this element (Using the DOM element, not jQuery)
-	//var textcolor = getStyle(jQueryElement[0], "color");
-	//var bgcolor = getStyle(jQueryElement[0], "background-color");
+	var textcolor = getStyle(jQueryElement[0], "color");
+	var bgcolor = getStyle(jQueryElement[0], "background-color");
 
 	// Use tinycolor to darken the background and lighten the foreground
 	textcolor = tinycolor(textcolor);
