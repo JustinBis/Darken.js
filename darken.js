@@ -38,13 +38,19 @@ function insertHeader()
 	$("#darkenjs-yes").click(function(){
 		darken();
 		// Remove the header with a slide up animation
-		$(".darkenjs-header").slideUp().remove();
+		$(".darkenjs-header").slideUp(function() {
+			// Remove the div when the animation is complete
+			this.remove();
+		});
 	})
 
 	// Atach a click handler to the 'No' button
 	$("#darkenjs-no").click(function(){
 		// Remove the header with a slide up animation
-		$(".darkenjs-header").slideUp().remove();
+		$(".darkenjs-header").slideUp(function(){
+			// Remove the div when the animation is complete
+			this.remove();
+		});
 	})
 }
 
