@@ -171,5 +171,8 @@ function getStyle(elem, name) {
     }
 }
 
-// Initialize Darken.js by inserting the header
-insertHeader();
+// Initialize Darken.js by inserting the header when the page is ready
+$(document).ready(function(){
+	insertHeader();
+});
+
